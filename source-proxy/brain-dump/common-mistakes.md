@@ -306,7 +306,44 @@ else
 
 ---
 
-## 10. Signs Your Proxy is Poorly Designed
+## 10. Choosing the Wrong MessageType
+
+### Understanding Message Types
+
+DACH supports three message types, each serving a different purpose:
+
+#### BusinessObject (Complete Entity)
+**What it is:** A complete, fully-formed entity with all its data in a single message.
+---
+
+#### BusinessEvent (State Change)
+**What it is:** A notification that something happened - captures a moment in time or a state transition.
+---
+
+#### PartialObject (Decomposed Entity)
+**What it is:** A logical entity broken into multiple messages - one header/parent plus one or more children.
+
+### Decision Tree
+
+```
+Does your data represent an action/occurrence rather than entity state?
+├─ YES → BusinessEvent
+│         (OrderPlaced, CustomerRegistered, PaymentReceived)
+│
+└─ NO → Is it a complete entity?
+        ├─ YES → Does it have collections that can be >10s of items?
+        │        ├─ YES → PartialObject
+        │        │         (Order with Lines, Invoice with LineItems)
+        │        │
+        │        └─ NO → BusinessObject
+        │                 (Customer, Product, Settings)
+        │
+        └─ NO → You probably need PartialObject
+```
+
+---
+
+## 11. Signs Your Proxy is Poorly Designed
 
 Watch out for these red flags:
 
