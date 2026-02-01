@@ -85,10 +85,12 @@ interface SkillUpdate {
 }
 
 interface UserData {
+  version: number;        // For data migrations
   skills: TrackedSkill[];
   settings: UserSettings;
   createdAt: Date;
   lastModified: Date;
+  lastExported?: Date;    // For export reminder
 }
 ```
 
@@ -119,6 +121,7 @@ Categories to include by default (users select which to track):
 | Initialize Vite + React + TypeScript project | `/app` folder with working dev server |
 | Set up Tailwind CSS | Configured styling system |
 | Implement IndexedDB data layer | `useSkillStore` hook with CRUD operations |
+| **Add data versioning & migration support** | Version field in UserData, migration runner on app load |
 | Create topic library JSON | Pre-built topics available |
 | Build basic topic selector UI | Add/remove topics from tracking |
 | Export/Import JSON functionality | Backup/restore capability |
@@ -133,7 +136,7 @@ Categories to include by default (users select which to track):
 | Task | Deliverable |
 |------|-------------|
 | Skill card component | Display topic with level, last updated |
-| Click/drag level adjustment | Interactive 1-5 scale with drag support |
+| Click-to-set level adjustment | Interactive 1-5 scale with click support |
 | Skill list view with search | Filterable, sortable skill inventory |
 | Log time spent modal | Record learning time per topic |
 | Skill detail view | History, notes, goal setting |
@@ -147,7 +150,8 @@ Categories to include by default (users select which to track):
 
 | Task | Deliverable |
 |------|-------------|
-| Radar chart (proficiency overview) | Spider chart of selected topics |
+| Radar chart (proficiency overview) | Spider chart of selected topics (limit 8-10 per view) |
+| **Category filter for radar** | Filter radar by category or show category averages |
 | Progress timeline | Swim lane or line chart of level changes over time |
 | Category breakdown | Bar/pie chart of skills by category |
 | Heat map (recent activity) | Visual of what's been practiced |
@@ -166,7 +170,8 @@ Categories to include by default (users select which to track):
 | Learning time stats | Time tracked this week/month/all-time |
 | Goal progress indicators | Visual goal vs. actual comparison |
 | Stale skill warnings | Highlight topics not updated recently |
-| Achievement/milestone system | Optional gamification elements |
+| **Drag-to-adjust enhancement** | Add drag interaction to level adjustment (progressive enhancement) |
+| Achievement/milestone system | Optional gamification elements (defer if time-constrained) |
 
 **Exit Criteria:** Comprehensive stats and goal tracking functional
 
@@ -205,8 +210,10 @@ Categories to include by default (users select which to track):
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
 | IndexedDB data loss | Low | High | JSON export reminders, auto-backup to localStorage as fallback |
-| Complex drag interactions | Medium | Medium | Start with click-to-set, add drag as enhancement |
-| Visualization performance with many topics | Low | Medium | Virtualized lists, limit visible chart points |
+| **Browser/device sync** | High | Medium | IndexedDB is browser-specific; make export/import prominent, add "last exported X days ago" reminder |
+| **IndexedDB quota limits** | Low | Medium | Add optional data cleanup for history older than X years; monitor storage usage |
+| Complex drag interactions | Medium | Medium | Start with click-to-set, add drag as Phase 4 enhancement |
+| Visualization performance with many topics | Low | Medium | Virtualized lists, limit radar to 8-10 topics, use category filters |
 | Scope creep | Medium | High | Strict phase boundaries, MVP first |
 | GitHub Pages limitations | Low | Low | Static-only is actually a feature (simpler) |
 
@@ -233,19 +240,21 @@ Since this is a **new feature** (not modifying existing functionality):
 
 ---
 
-## Open Questions
+## Decisions (Resolved from Review)
 
-1. **Repo structure:** Should the app live in `/app`, `/docs-site`, or the root?
-2. **Integration depth:** Should clicking a topic link to related markdown files in the repo?
-3. **Theme:** Light mode, dark mode, or both?
-4. **Gamification:** Include achievements/badges, or keep it simple?
+| Question | Decision | Rationale |
+|----------|----------|----------|
+| **Repo structure** | `/app` folder | Keeps knowledge-base markdown separate from app code; cleaner git history |
+| **Integration with docs** | Defer to post-MVP | Nice-to-have; add links to markdown files later once core works |
+| **Theme** | System preference + toggle | Low effort with Tailwind's `dark:` classes; users expect this in 2026 |
+| **Gamification** | Defer to post-MVP | Fun but not core; add achievements later if still desired |
 
 ---
 
 ## Workflow Status
 
-**Current Step:** ✅ Created  
-**Next Step:** Commit plan, then `plan-review` for validation
+**Current Step:** ✅ Reviewed & Refined  
+**Next Step:** Commit refinements, then `plan-execute` to begin implementation
 
 **To continue:**
 1. Commit the plan (git-review invoked automatically below)
