@@ -5,6 +5,7 @@ import { DataManagement } from './components/DataManagement';
 import { SkillList } from './components/SkillList';
 import { LogTimeModal } from './components/LogTimeModal';
 import { SkillDetailModal } from './components/SkillDetailModal';
+import { Dashboard } from './components/Dashboard';
 
 function App() {
   const {
@@ -58,6 +59,12 @@ function App() {
       </header>
 
       <main className="max-w-6xl mx-auto space-y-8">
+        {/* Dashboard Visualizations */}
+        <Dashboard
+          skills={userData.skills}
+          customTopics={userData.customTopics}
+        />
+
         {/* Skill List - Main view */}
         <SkillList
           skills={userData.skills}
