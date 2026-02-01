@@ -1,6 +1,6 @@
 # 001 - Knowledge Tracker UI
 
-**Status:** � In Progress (Phase 1 Complete)  
+**Status:** 🚧 In Progress (Phase 2 Complete)  
 **Created:** 2026-02-01  
 **Target Date:** 2026-03-15  
 **Owner:** -
@@ -130,18 +130,18 @@ Categories to include by default (users select which to track):
 
 ---
 
-### Phase 2: Skill Tracking UI (Week 2-3)
+### Phase 2: Skill Tracking UI (Week 2-3) ✅
 **Goal:** Core skill management interface
 
-| Task | Deliverable |
-|------|-------------|
-| Skill card component | Display topic with level, last updated |
-| Click-to-set level adjustment | Interactive 1-5 scale with click support |
-| Skill list view with search | Filterable, sortable skill inventory |
-| Log time spent modal | Record learning time per topic |
-| Skill detail view | History, notes, goal setting |
+| Task | Status | Deliverable |
+|------|--------|-------------|
+| Skill card component | ✅ | SkillCard with level indicator, time tracking, goal badge |
+| Click-to-set level adjustment | ✅ | Interactive 1-5 scale buttons with visual feedback |
+| Skill list view with search | ✅ | SkillList with search, sort (name/level/recent/category) |
+| Log time spent modal | ✅ | LogTimeModal with quick options and custom time input |
+| Skill detail view | ✅ | SkillDetailModal with history, notes, goal setting tabs |
 
-**Exit Criteria:** Can track skills, adjust levels, log time, set goals
+**Exit Criteria:** ✅ Can track skills, adjust levels, log time, set goals
 
 ---
 
@@ -253,8 +253,8 @@ Since this is a **new feature** (not modifying existing functionality):
 
 ## Workflow Status
 
-**Current Step:** ✅ Phase 1 Complete  
-**Next Step:** Commit changes, then proceed to Phase 2 (Skill Tracking UI)
+**Current Step:** ✅ Phase 2 Complete  
+**Next Step:** Commit changes, then proceed to Phase 3 (Visualizations)
 
 **Phase 1 Summary:**
 - Vite + React + TypeScript project initialized in `/app`
@@ -265,6 +265,13 @@ Since this is a **new feature** (not modifying existing functionality):
 - Topic selector UI with search and filtering
 - Export/Import JSON functionality
 
+**Phase 2 Summary:**
+- SkillCard component with level indicator, time tracking, goal badges
+- Click-to-set level adjustment (1-5 scale with visual feedback)
+- SkillList with search and sort (name/level/recent/category)
+- LogTimeModal with quick select options and custom time input
+- SkillDetailModal with tabs for history, notes, and goal setting
+
 **To continue:**
-1. Commit the plan (git-review invoked automatically below)
-2. Run `plan-review` from dach-prompts MCP to validate with multiple AI models
+1. Commit Phase 2 changes
+2. Proceed to Phase 3 (Visualizations) or take a break
